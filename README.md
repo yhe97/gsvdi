@@ -1,38 +1,10 @@
-# sv
+If you already have an docker image in hand
+1. Load the image into podman: podman load -i gsvdi.tar
+2. Check if the image was loaded: podman image ls
+3. Run the container: podman run -d -p 8080:80 --name gsvdi gsvdi  (1st gsvdi is an argument for --name flag; 2nd gsvdi is the image name)
+4. Check on the browser by going to the http://localhost:8080
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+If you need to modify httpd configuration, you can go inside the container by `podman exec -it gsvdi bash`, (gsvdi here is the container we put in before). The httpd conf files are in `/usr/local/apache2/conf`. The static files are in `/usr/local/apache2/htdocs`
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+To build a new image `podman build -t gsvdi ./`
+We might need to specifiy a platform for the image, with `--platform` flag. (https://docs.podman.io/en/v5.3.2/markdown/podman-build.1.html#platform-os-arch-variant)
