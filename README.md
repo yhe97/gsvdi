@@ -8,3 +8,9 @@ If you need to modify httpd configuration, you can go inside the container by `p
 
 To build a new image `podman build --platform linux/amd64 --tag gsvdi ./`
 We might need to specifiy a platform for the image, with `--platform` flag. (https://docs.podman.io/en/v5.3.2/markdown/podman-build.1.html#platform-os-arch-variant)
+
+=====
+UPDATE:
+To make in work in our k8s cluster, two more steps need to be added in dockerfile:
+- copy TLS and SSL credentials and configuration
+- expose port 80 443
